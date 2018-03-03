@@ -6,6 +6,8 @@ import mousetrap from 'mousetrap'
 import warning from 'warning'
 import outsideTargetHandlerFactory from './utils/outsideTargetHandlerFactory'
 
+let swalLibrary;
+
 const ALLOWS_KEYS = [
   'title',
   'text',
@@ -73,7 +75,7 @@ function warningRemoved(props) {
   })
 }
 
-export default class SweetAlert extends Component {
+export class SweetAlert extends Component {
   /* eslint-disable react/no-unused-prop-types */
   static propTypes = {
     // sweetalert option
@@ -142,7 +144,7 @@ export default class SweetAlert extends Component {
     super(props, context)
 
     this._show = false
-    this.swal = props.swal || swal
+    this.swal = swalLibrary || props.swal || swal
   }
 
   componentDidMount() {
@@ -260,4 +262,9 @@ export default class SweetAlert extends Component {
   render() {
     return null
   }
+}
+
+export default function loadSwal(swalInstance = swal) {
+  swalLibrary = swalInstance;
+  return SweetAlert
 }
