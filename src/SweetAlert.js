@@ -75,7 +75,7 @@ function warningRemoved(props) {
   })
 }
 
-export function withSwal(swalInstance = swal) {
+export function withSwal(swalInstance) {
   swalLibrary = swalInstance
   return SweetAlert
 }
