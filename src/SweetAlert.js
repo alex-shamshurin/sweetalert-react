@@ -6,8 +6,6 @@ import mousetrap from 'mousetrap'
 import warning from 'warning'
 import outsideTargetHandlerFactory from './utils/outsideTargetHandlerFactory'
 
-let swalLibrary
-
 const ALLOWS_KEYS = [
   'title',
   'text',
