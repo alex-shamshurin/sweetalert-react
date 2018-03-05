@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import swal from 'sweetalert2'
 import pick from 'lodash.pick'
@@ -75,12 +75,7 @@ function warningRemoved(props) {
   })
 }
 
-export function withSwal(swalInstance) {
-  swalLibrary = swalInstance
-  return SweetAlert
-}
-
-export default class SweetAlert extends Component {
+class SweetAlert extends Component {
   /* eslint-disable react/no-unused-prop-types */
   static propTypes = {
     // sweetalert option
@@ -120,6 +115,7 @@ export default class SweetAlert extends Component {
   /* eslint-enable react/no-unused-prop-types */
 
   static defaultProps = {
+    swal,
     // sweetalert option
     text: null,
     type: null,
@@ -149,7 +145,6 @@ export default class SweetAlert extends Component {
     super(props, context)
 
     this._show = false
-    this.swal = swalLibrary || props.swal || swal
   }
 
   componentDidMount() {
@@ -187,7 +182,7 @@ export default class SweetAlert extends Component {
     warningRemoved(props)
     const { show, onConfirm, onCancel, onClose, onEscapeKey } = props
     if (show) {
-      this.swal(
+      this.props.swal(
         {
           ...pick(props, ALLOWS_KEYS),
           ...OVERWRITE_PROPS,
@@ -257,7 +252,7 @@ export default class SweetAlert extends Component {
 
   handleClose(onClose) {
     if (this._show) {
-      this.swal.close()
+      this.props.swal.close()
       this.unbindEscapeKey()
       if (onClose) onClose()
       this._show = false
@@ -268,3 +263,10 @@ export default class SweetAlert extends Component {
     return null
   }
 }
+
+export const withSwal = swal => props => (
+  <SweetAlert {...props} swal={swal} />
+)
+
+export default SweetAlert;
+
