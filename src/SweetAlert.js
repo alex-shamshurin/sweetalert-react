@@ -263,7 +263,7 @@ class SweetAlert extends Component {
 }
 
 export const asReactComponent = swal => props => (
-  <SweetAlert {...props} swal={swal} />
+  <SweetAlert swal={swal} {...props} />
 )
 
 export default SweetAlert;
