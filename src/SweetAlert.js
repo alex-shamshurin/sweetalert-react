@@ -264,7 +264,7 @@ class SweetAlert extends Component {
   }
 }
 
-export const withSwal = swal => props => (
+export const asReactComponent = swal => props => (
   <SweetAlert {...props} swal={swal} />
 )
 
