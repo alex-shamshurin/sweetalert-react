@@ -40,6 +40,59 @@ render() {
 }
 ```
 
+```js
+import React, { Component } from 'react';
+import { withSwalInstance } from 'sweetalert2-react';
+import swal from 'sweetalert2';
+
+const SweetAlert = withSwalInstance(swal);
+
+// ...
+
+render() {
+  return (
+    <div>
+      <button onClick={() => this.setState({ show: true })}>Alert</button>
+      <SweetAlert
+        show={this.state.show}
+        title="Demo"
+        onConfirm={() => this.setState({ show: false })}
+      >
+        SweetAlert in React
+      </SweetAlert>
+    </div>
+  );
+}
+```
+
+```js
+import React, { Component } from 'react';
+import { withSwalInstance } from 'sweetalert2-react';
+import ReactDOMServer from 'react-dom/server'
+import swal from 'sweetalert2';
+
+const SweetAlert = withSwalInstance(swal);
+
+// ...
+
+render() {
+  return (
+    <div>
+      <button onClick={() => this.setState({ show: true })}>Alert</button>
+      <SweetAlert
+        show={this.state.show}
+        title="Demo"
+        onConfirm={() => this.setState({ show: false })}
+      >
+        {ReactDOMServer.renderToString(
+          <h1>SweetAlert in React</h1>
+        )}
+      </SweetAlert>
+    </div>
+  );
+}
+```
+
 Since 0.6, you can wrap your own sweetalert2 (swal) instance:
 
 ```js
