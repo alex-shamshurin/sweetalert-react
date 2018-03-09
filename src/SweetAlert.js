@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactDOMServer from 'react-dom/server'
 import PropTypes from 'prop-types'
 import swal from 'sweetalert2'
 import pick from 'lodash.pick'
@@ -80,6 +81,7 @@ export const withSwalInstance = swalInstance =>
       // sweetalert option
       title: PropTypes.string.isRequired,
       text: PropTypes.string,
+      children: PropTypes.node,
       type: PropTypes.oneOf(['warning', 'error', 'success', 'info', 'input']),
       customClass: PropTypes.string,
       showCancelButton: PropTypes.bool,
@@ -179,10 +181,18 @@ export const withSwalInstance = swalInstance =>
     setupWithProps(props) {
       warningRemoved(props)
       const { show, onConfirm, onCancel, onClose, onEscapeKey } = props
+
       if (show) {
+        let html = props.html
+
+        if (props.children) {
+          html = props.children
+        }
+
         this._swal({
           ...pick(props, ALLOWS_KEYS),
-          ...OVERWRITE_PROPS
+          ...OVERWRITE_PROPS,
+          html,
         }).then(
           () => {
             this.handleClickConfirm(onConfirm)
