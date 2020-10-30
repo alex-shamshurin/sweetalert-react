@@ -26,7 +26,7 @@ const ALLOWS_KEYS = [
   'position',
   'toast',
   'backdrop',
-  // 'inputType',
+  'input',
   'inputValue',
   'inputPlaceholder',
   'showLoaderOnConfirm',
@@ -112,7 +112,7 @@ export const withSwalInstance = swalInstance =>
         PropTypes.bool,
         PropTypes.string
       ),
-      // inputType: PropTypes.oneOf(ALLOWS_INPUT_TYPES),
+      input : PropTypes.oneOf(ALLOWS_INPUT_TYPES),
       inputPlaceholder: PropTypes.string,
       inputValue: PropTypes.string,
       showLoaderOnConfirm: PropTypes.bool,
@@ -147,9 +147,9 @@ export const withSwalInstance = swalInstance =>
       position: 'center',
       toast: false,
       backdrop: true,
-      // inputType: 'text',
+      input: 'text',
       inputPlaceholder: null,
-      inputValue: null,
+      inputValue: '',
       showLoaderOnConfirm: false,
 
       // custom option
@@ -207,7 +207,7 @@ export const withSwalInstance = swalInstance =>
           .then(
             (result) => {
               if (result.value) {
-                this.handleClickConfirm(onConfirm);
+                this.handleClickConfirm(onConfirm, result);
               } else {
                 this.handleClickCancel(onCancel, result.dismiss);
               }
